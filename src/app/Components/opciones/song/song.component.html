@@ -1,0 +1,132 @@
+<div class="ui-g">
+	<div class="ui-g-12">
+		<div class="ui-g-6">
+			<h2 class="name-option">
+				Canciones
+			</h2>
+		</div>
+		<div class="ui-g-6">
+			<button pButton (click)="addSong()" style="position: absolute; right: 10px; width: 100px;">Agregar</button>
+		</div>
+	</div>
+
+	<div class="ui-g-12">
+		<p-table [value]="songs" [paginator]="true" [rows]="10">
+			<ng-template pTemplate="header">
+				<tr>
+					<th style="width: 56%;">Nombre</th>
+					<th style="width: 56%;">Banda</th>
+					<th style="width: 22%;">Modificar</th>
+					<th style="width: 22%;">Eliminar</th>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="body" let-song>
+				<tr>
+					<td>{{ song.songName }}</td>
+					<td>{{ song.band.name }}</td>
+					<td class="modify" (click)="modify(song)">Modificar</td>
+					<td class="delete" (click)="delete(song)">Eliminar</td>
+				</tr>
+			</ng-template>
+		</p-table>
+	</div>
+</div>
+
+<!-- Agregar nombre -->
+<p-dialog
+	header="Modificar"
+	[(visible)]="displayAdd"
+	[modal]="true"
+	[responsive]="true"
+	[style]="{ width: '550px', minWidth: '200px' }"
+	[closable]="false"
+>
+	<h3>Seleccione la banda</h3>
+	<p-dropdown
+		[options]="bands"
+		[(ngModel)]="songSelected.band"
+		optionLabel="name"
+		filter="true"
+		[style]="{ width: '100%' }"
+		appendTo="body"
+		placeholder="Bandas"
+	></p-dropdown>
+	<br />
+
+	<h3>Nombre</h3>
+	<input type="text" pInputText style="width: 100%;" [(ngModel)]="songSelected.username" />
+
+	<p-footer>
+		<button type="button" pButton icon="pi pi-check" (click)="continuarIns()" label="Continuar"></button>
+	</p-footer>
+</p-dialog>
+
+<!-- Agregar recursos (Instrumentos) -->
+<p-dialog
+	header="Modificar"
+	[(visible)]="displayInst"
+	[modal]="true"
+	[responsive]="true"
+	[style]="{ width: '550px', minWidth: '200px' }"
+	[closable]="false"
+>
+	<h3>Seleccione los instrumentos que tiene la canción</h3>
+	<button
+		pButton
+		type="button"
+		icon="pi pi-check"
+		iconPos="right"
+		[ngClass]="{ 'inst-select': instrumentos.voz, 'inst-deselect': !instrumentos.voz }"
+		label="Voz"
+		(click)="instrumentos.voz = !instrumentos.voz"
+	></button>
+	<button
+		pButton
+		type="button"
+		icon="pi pi-check"
+		iconPos="right"
+		[ngClass]="{ 'inst-select': instrumentos.guitarra, 'inst-deselect': !instrumentos.guitarra }"
+		label="Guitarra"
+		(click)="instrumentos.guitarra = !instrumentos.guitarra"
+	></button>
+	<button
+		pButton
+		type="button"
+		icon="pi pi-check"
+		iconPos="right"
+		[ngClass]="{ 'inst-select': instrumentos.bajo, 'inst-deselect': !instrumentos.bajo }"
+		label="Bajo"
+		(click)="instrumentos.bajo = !instrumentos.bajo"
+	></button>
+	<button
+		pButton
+		type="button"
+		icon="pi pi-check"
+		iconPos="right"
+		[ngClass]="{ 'inst-select': instrumentos.bateria, 'inst-deselect': !instrumentos.bateria }"
+		label="Bateria"
+		(click)="instrumentos.bateria = !instrumentos.bateria"
+	></button>
+
+	<p-footer>
+		<button type="button" pButton icon="pi pi-check" (click)="continuarReso()" label="Continuar"></button>
+	</p-footer>
+</p-dialog>
+
+<!-- Agregar archivos (videos) -->
+<p-dialog
+	header="Modificar"
+	[(visible)]="displayReso"
+	[modal]="true"
+	[responsive]="true"
+	[style]="{ width: '550px', minWidth: '200px' }"
+	[closable]="false"
+>
+	<h3>Seleccione la banda</h3>
+
+	<p-footer>
+		<button type="button" pButton icon="pi pi-check" (click)="displayReso = !displayReso" label="Continuar"></button>
+	</p-footer>
+</p-dialog>
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

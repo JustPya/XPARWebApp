@@ -1,0 +1,22 @@
+.modify {
+  color: blue;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+
+.delete {
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+
+::ng-deep .ui-table .ui-table-thead > tr > th {
+  background-color: #3c6bb8 !important;
+  color: white !important;
+}
+
+.name-option {
+  margin-left: 3em;
+}

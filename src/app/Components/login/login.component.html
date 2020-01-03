@@ -1,0 +1,13 @@
+<div class="bg-img">
+  <form class="container">
+    <h1>Iniciar sesión</h1>
+
+    <label for="email"><b>Usuario</b></label>
+    <input type="text" placeholder="Ingrese usuario" name="email" [(ngModel)]="username" required />
+
+    <label for="psw"><b>Contraseña</b></label>
+    <input type="password" placeholder="Ingrese Contraseña" name="psw" [(ngModel)]="password" required />
+
+    <button type="submit" class="btn" (click)="login()">Ingresar</button>
+  </form>
+</div>

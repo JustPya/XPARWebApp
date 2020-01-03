@@ -1,0 +1,83 @@
+.container {
+	font-size: 16px;
+}
+
+.header {
+	padding: 0px;
+}
+
+::ng-deep .ui-toolbar {
+	height: 6em !important;
+	border: 0px !important;
+	background-color: #c619cb !important;
+	border-radius: 0px !important;
+}
+
+.logo-name {
+	font-size: 3em;
+	margin-left: 1em;
+}
+
+.sign-off {
+	margin: 0px !important;
+	font-size: 16px;
+	height: 4em !important;
+	width: 12em;
+}
+
+.button-menu {
+	width: 80%;
+	height: 5em;
+	margin: 1em 10%;
+}
+
+.menu {
+	padding: 0px;
+	font-size: 1em !important;
+}
+
+::ng-deep .ui-menu {
+	width: 100% !important;
+	border: 0px !important;
+	font-size: 1em !important;
+	background-color: #db1ce0 !important;
+	height: calc(100vh - 5.25em) !important;
+	border-radius: 0px !important;
+}
+
+::ng-deep .ui-menuitem {
+	height: 5em !important;
+	*:hover {
+		background-color: #c619cb !important;
+	}
+	*:focus {
+		background-color: #c619cb !important;
+	}
+}
+
+::ng-deep .ui-menuitem-link {
+	background-color: #db1ce0 !important;
+	height: 100% !important;
+	padding-top: 24px !important;
+	*:enabled:focus {
+		box-shadow: 0 0 0 1em red !important;
+	}
+}
+
+::ng-deep .ui-menuitem-text {
+	font-size: 16px;
+	color: white !important;
+}
+
+::ng-deep .ui-menuitem-icon {
+	color: white !important;
+}
+
+::ng-deep .ui-submenu-header {
+	background-color: transparent !important;
+	font-size: 20px;
+}
+
+::ng-deep .ui-button:enabled:focus {
+	box-shadow: 0 0 0 0 #fff !important;
+}
