@@ -54,10 +54,11 @@
 	<br />
 
 	<h3>Nombre</h3>
-	<input type="text" pInputText style="width: 100%;" [(ngModel)]="songSelected.username" />
+	<input type="text" pInputText style="width: 100%;" [(ngModel)]="songSelected.songName" />
 
 	<p-footer>
 		<button type="button" pButton icon="pi pi-check" (click)="continuarIns()" label="Continuar"></button>
+		<button type="button" pButton icon="pi pi-times" class="ui-button-raised ui-button-info" (click)="cancelar()" label="Cancelar"></button>
 	</p-footer>
 </p-dialog>
 
@@ -76,40 +77,41 @@
 		type="button"
 		icon="pi pi-check"
 		iconPos="right"
-		[ngClass]="{ 'inst-select': instrumentos.voz, 'inst-deselect': !instrumentos.voz }"
+		[ngClass]="{ 'inst-select': instrumentos.Voice, 'inst-deselect': !instrumentos.Voice }"
 		label="Voz"
-		(click)="instrumentos.voz = !instrumentos.voz"
+		(click)="selectIns('voice')"
 	></button>
 	<button
 		pButton
 		type="button"
 		icon="pi pi-check"
 		iconPos="right"
-		[ngClass]="{ 'inst-select': instrumentos.guitarra, 'inst-deselect': !instrumentos.guitarra }"
+		[ngClass]="{ 'inst-select': instrumentos.Guitar, 'inst-deselect': !instrumentos.Guitar }"
 		label="Guitarra"
-		(click)="instrumentos.guitarra = !instrumentos.guitarra"
+		(click)="selectIns('guitar')"
 	></button>
 	<button
 		pButton
 		type="button"
 		icon="pi pi-check"
 		iconPos="right"
-		[ngClass]="{ 'inst-select': instrumentos.bajo, 'inst-deselect': !instrumentos.bajo }"
+		[ngClass]="{ 'inst-select': instrumentos.Bass, 'inst-deselect': !instrumentos.Bass }"
 		label="Bajo"
-		(click)="instrumentos.bajo = !instrumentos.bajo"
+		(click)="selectIns('bass')"
 	></button>
 	<button
 		pButton
 		type="button"
 		icon="pi pi-check"
 		iconPos="right"
-		[ngClass]="{ 'inst-select': instrumentos.bateria, 'inst-deselect': !instrumentos.bateria }"
+		[ngClass]="{ 'inst-select': instrumentos.Drums, 'inst-deselect': !instrumentos.Drums }"
 		label="Bateria"
-		(click)="instrumentos.bateria = !instrumentos.bateria"
+		(click)="selectIns('drums')"
 	></button>
 
 	<p-footer>
 		<button type="button" pButton icon="pi pi-check" (click)="continuarReso()" label="Continuar"></button>
+		<button type="button" pButton icon="pi pi-times" class="ui-button-raised ui-button-info" (click)="cancelar()" label="Cancelar"></button>
 	</p-footer>
 </p-dialog>
 
@@ -126,6 +128,7 @@
 
 	<p-footer>
 		<button type="button" pButton icon="pi pi-check" (click)="displayReso = !displayReso" label="Continuar"></button>
+		<button type="button" pButton icon="pi pi-times" class="ui-button-raised ui-button-info" (click)="cancelar()" label="Cancelar"></button>
 	</p-footer>
 </p-dialog>
 

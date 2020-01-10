@@ -4,6 +4,8 @@ import { GeneralService } from "src/app/Services/general.service";
 import { Response } from "src/app/Model/response";
 import { ConfirmationService } from "primeng/api";
 import { Band } from "src/app/Model/band";
+import { Resource } from "src/app/Model/resource";
+import { Instrument } from "src/app/Model/instrument";
 
 @Component({
 	selector: "app-song",
@@ -23,10 +25,17 @@ export class SongComponent implements OnInit {
 
 	public new: boolean = true;
 	public instrumentos = {
-		voz: false,
-		guitarra: false,
-		bajo: false,
-		bateria: false
+		Voice: false,
+		Guitar: false,
+		Bass: false,
+		Drums: false
+	};
+
+	public instrumentosClick = {
+		Voice: false,
+		Guitar: false,
+		Bass: false,
+		Drums: false
 	};
 
 	constructor(private service: GeneralService, private confirmationService: ConfirmationService) {
@@ -75,14 +84,129 @@ export class SongComponent implements OnInit {
 	}
 
 	continuarIns() {
-		this.displayAdd = false;
-		this.displayInst = true;
+		if (this.songSelected.band.name == "") {
+			console.log("No selecciono banda");
+			return;
+		}
+		if (this.songSelected.songName == "") {
+			console.log("No selecciono nombre de cancion");
+			return;
+		}
+		if (this.new) {
+			this.service.createSong(this.songSelected).subscribe(
+				response => {
+					this.response = response;
+				},
+				error => {},
+				() => {
+					console.log(this.response);
+					if (this.response.status == "ok") {
+						this.songSelected = this.response.message;
+						this.displayAdd = false;
+						this.displayInst = true;
+					}
+				}
+			);
+		} else {
+			this.displayAdd = false;
+			this.displayInst = true;
+			console.log("hacer update", this.songSelected);
+			this.verificarInstrumentos();
+		}
 	}
 
 	continuarReso() {
 		console.log(this.instrumentos);
+		if (this.instrumentosClick.Voice && this.instrumentos.Voice) {
+			this.createInsAndReso("Voice");
+		}
+		if (this.instrumentosClick.Guitar && this.instrumentos.Guitar) {
+			this.createInsAndReso("Guitar");
+		}
+		if (this.instrumentosClick.Bass && this.instrumentos.Bass) {
+			this.createInsAndReso("Bass");
+		}
+		if (this.instrumentosClick.Drums && this.instrumentos.Drums) {
+			this.createInsAndReso("Drums");
+		}
 		this.displayInst = false;
 		this.displayReso = true;
+	}
+
+	createInsAndReso(nameIns: string) {
+		var newResource = new Resource();
+		var newInstrument = new Instrument();
+		newResource.name = nameIns;
+		newInstrument.name = newResource.name;
+		this.service.createInstrument(newInstrument).subscribe(resCIns => {
+			if ((resCIns.status = "ok")) {
+				console.log(resCIns.message);
+				newInstrument = resCIns.message;
+				this.service.createResource(newResource).subscribe(resCRes => {
+					if ((resCRes.status = "ok")) {
+						console.log(resCRes.message);
+						newResource = resCRes.message;
+						newInstrument.resource = newResource;
+						this.service.updateInstrument(newInstrument).subscribe(resUIns => {
+							if ((resUIns.status = "ok")) {
+								console.log(resUIns.message);
+								newInstrument = resUIns.message;
+								this.songSelected.instruments.push(newInstrument);
+								this.service.updateSong(this.songSelected).subscribe(resSong => {
+									if ((resSong.status = "ok")) {
+										console.log("Instrumento creado y agregado a la cancion");
+										console.log(this.songSelected);
+									}
+								});
+							}
+						});
+					}
+				});
+			}
+		});
+	}
+
+	verificarInstrumentos() {
+		for (const ins of this.songSelected.instruments) {
+			switch (ins.name) {
+				case "Voice":
+					this.instrumentos.Voice = true;
+					break;
+				case "Guitar":
+					this.instrumentos.Guitar = true;
+					break;
+				case "Bass":
+					this.instrumentos.Bass = true;
+					break;
+				case "Drums":
+					this.instrumentos.Drums = true;
+					break;
+			}
+		}
+	}
+
+	selectIns(inst: string) {
+		switch (inst) {
+			case "voice":
+				this.instrumentos.Voice = !this.instrumentos.Voice;
+				this.instrumentosClick.Voice = !this.instrumentosClick.Voice;
+				break;
+			case "guitar":
+				this.instrumentos.Guitar = !this.instrumentos.Guitar;
+				this.instrumentosClick.Guitar = !this.instrumentosClick.Guitar;
+				break;
+			case "bass":
+				this.instrumentos.Bass = !this.instrumentos.Bass;
+				this.instrumentosClick.Bass = !this.instrumentosClick.Bass;
+				break;
+			case "drums":
+				this.instrumentos.Drums = !this.instrumentos.Drums;
+				this.instrumentosClick.Drums = !this.instrumentosClick.Drums;
+				break;
+
+			default:
+				break;
+		}
 	}
 
 	modified() {
@@ -118,6 +242,14 @@ export class SongComponent implements OnInit {
 				});
 			}
 		});
+	}
+
+	cancelar() {
+		this.displayAdd = false;
+		this.displayInst = false;
+		this.displayReso = false;
+		this.songSelected = new Song();
+		this.getAllSongs();
 	}
 
 	addSong() {

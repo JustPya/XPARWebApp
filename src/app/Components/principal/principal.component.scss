@@ -1,3 +1,8 @@
+// $main-color: #c619cb;
+// $secondary-color: #db1ce0;
+$main-color: #5a5a5a;
+$secondary-color: #686868;
+
 .container {
 	font-size: 16px;
 }
@@ -9,7 +14,7 @@
 ::ng-deep .ui-toolbar {
 	height: 6em !important;
 	border: 0px !important;
-	background-color: #c619cb !important;
+	background-color: $main-color !important;
 	border-radius: 0px !important;
 }
 
@@ -40,7 +45,7 @@
 	width: 100% !important;
 	border: 0px !important;
 	font-size: 1em !important;
-	background-color: #db1ce0 !important;
+	background-color: $secondary-color !important;
 	height: calc(100vh - 5.25em) !important;
 	border-radius: 0px !important;
 }
@@ -48,15 +53,15 @@
 ::ng-deep .ui-menuitem {
 	height: 5em !important;
 	*:hover {
-		background-color: #c619cb !important;
+		background-color: $main-color !important;
 	}
 	*:focus {
-		background-color: #c619cb !important;
+		background-color: $main-color !important;
 	}
 }
 
 ::ng-deep .ui-menuitem-link {
-	background-color: #db1ce0 !important;
+	background-color: $secondary-color !important;
 	height: 100% !important;
 	padding-top: 24px !important;
 	*:enabled:focus {
