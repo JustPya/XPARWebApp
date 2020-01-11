@@ -1,6 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-	font-family: Arial, Helvetica, sans-serif;
-	border: 0px;
-	margin: 0px;
+  font-family: Arial, Helvetica, sans-serif;
+  border: 0px;
+  margin: 0px;
+}
+
+@font-face {
+  font-family: varelisa;
+  src: url(assets/fonts/Varelisa.ttf) format('opentype');
 }
