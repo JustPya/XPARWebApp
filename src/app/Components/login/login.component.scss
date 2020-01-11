@@ -3,7 +3,7 @@
 }
 
 .bg-img {
-  background-image: url('/assets/bglogin.jpg');
+  background-image: url('/assets/bglogin.png');
 
   min-height: 100vh;
 
@@ -17,7 +17,9 @@
 .container {
   position: absolute;
   right: 0;
-  margin: 20em 20em 0em 0em;
+  margin-top: calc(50vh - 185px);
+  margin-right: 10vw;
+  //margin: 16em 13em 0em 0em;
   max-width: 30em;
   padding: 2em;
   background-color: white;
