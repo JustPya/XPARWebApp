@@ -63,12 +63,12 @@ export class GeneralService {
 	}
 
 	createSong(song: Song): Observable<Response> {
-		let body = { songName: song.songName, band: song.band._id, instruments: song.instruments, resources: song.resources };
+		let body = { songName: song.songName, band: song.band, instruments: song.instruments, resources: song.resources };
 		return this.http.post<Response>(environment.urlCreateSong, body);
 	}
 
 	updateSong(song: Song): Observable<Response> {
-		let body = { songName: song.songName, band: song.band._id, instruments: song.instruments, resources: song.resources };
+		let body = { songName: song.songName, band: song.band, instruments: song.instruments, resources: song.resources };
 		return this.http.patch<Response>(environment.urlUpdateSong + "/" + song._id, body);
 	}
 

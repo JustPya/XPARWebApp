@@ -14,10 +14,11 @@ import { Instrument } from "src/app/Model/instrument";
 	providers: [ConfirmationService]
 })
 export class SongComponent implements OnInit {
-	public songs: Song[] = [];
 	public response: Response;
+	public songs: Song[] = [];
 	public songSelected: Song = new Song();
 	public bands: Band[] = [];
+	public bandSelected: Band = new Band();
 
 	public displayAdd: boolean = false;
 	public displayInst: boolean = false;
@@ -83,8 +84,12 @@ export class SongComponent implements OnInit {
 		this.new = false;
 	}
 
+	selectBand() {
+		this.songSelected.band = this.bandSelected._id;
+	}
+
 	continuarIns() {
-		if (this.songSelected.band.name == "") {
+		if (this.songSelected.band == "") {
 			console.log("No selecciono banda");
 			return;
 		}
@@ -140,24 +145,16 @@ export class SongComponent implements OnInit {
 		newInstrument.name = newResource.name;
 		this.service.createInstrument(newInstrument).subscribe(resCIns => {
 			if ((resCIns.status = "ok")) {
-				console.log(resCIns.message);
 				newInstrument = resCIns.message;
 				this.service.createResource(newResource).subscribe(resCRes => {
 					if ((resCRes.status = "ok")) {
-						console.log(resCRes.message);
 						newResource = resCRes.message;
-						newInstrument.resource = newResource;
+						newInstrument.resource = newResource._id;
 						this.service.updateInstrument(newInstrument).subscribe(resUIns => {
 							if ((resUIns.status = "ok")) {
-								console.log(resUIns.message);
 								newInstrument = resUIns.message;
 								this.songSelected.instruments.push(newInstrument);
-								this.service.updateSong(this.songSelected).subscribe(resSong => {
-									if ((resSong.status = "ok")) {
-										console.log("Instrumento creado y agregado a la cancion");
-										console.log(this.songSelected);
-									}
-								});
+								this.service.updateSong(this.songSelected).subscribe(resSong => {});
 							}
 						});
 					}
@@ -239,6 +236,7 @@ export class SongComponent implements OnInit {
 					}
 					console.log(response);
 					this.songSelected = new Song();
+					this.bandSelected = new Band();
 				});
 			}
 		});
@@ -249,6 +247,15 @@ export class SongComponent implements OnInit {
 		this.displayInst = false;
 		this.displayReso = false;
 		this.songSelected = new Song();
+		this.bandSelected = new Band();
+		this.instrumentos.Voice = false;
+		this.instrumentos.Guitar = false;
+		this.instrumentos.Bass = false;
+		this.instrumentos.Drums = false;
+		this.instrumentosClick.Voice = false;
+		this.instrumentosClick.Guitar = false;
+		this.instrumentosClick.Bass = false;
+		this.instrumentosClick.Drums = false;
 		this.getAllSongs();
 	}
 

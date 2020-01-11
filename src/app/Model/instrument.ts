@@ -1,13 +1,11 @@
-import { Resource } from "./resource";
-
 export class Instrument {
 	public _id: string;
 	public name: string;
-	public resource: Resource;
+	public resource: string;
 
 	constructor() {
-		this._id = "";
-		this.name = "";
-		this.resource = new Resource();
+		this._id = null;
+		this.name = null;
+		this.resource = null;
 	}
 }

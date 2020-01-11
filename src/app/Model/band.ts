@@ -8,8 +8,8 @@ export class Band {
 
 	constructor() {
 		this._id = null;
-		this.name = "";
-		this.description = "";
+		this.name = null;
+		this.description = null;
 		this.resources = [];
 	}
 }

@@ -22,8 +22,8 @@
 			</ng-template>
 			<ng-template pTemplate="body" let-song>
 				<tr>
-					<td>{{ song.songName }}</td>
-					<td>{{ song.band.name }}</td>
+					<td>{{ song.songName != undefined ? song.songName : "" }}</td>
+					<td>{{ song.band != undefined ? song.band.name : "" }}</td>
 					<td class="modify" (click)="modify(song)">Modificar</td>
 					<td class="delete" (click)="delete(song)">Eliminar</td>
 				</tr>
@@ -44,12 +44,13 @@
 	<h3>Seleccione la banda</h3>
 	<p-dropdown
 		[options]="bands"
-		[(ngModel)]="songSelected.band"
+		[(ngModel)]="bandSelected"
 		optionLabel="name"
 		filter="true"
 		[style]="{ width: '100%' }"
 		appendTo="body"
 		placeholder="Bandas"
+		(onChange)="selectBand()"
 	></p-dropdown>
 	<br />
 
@@ -58,7 +59,14 @@
 
 	<p-footer>
 		<button type="button" pButton icon="pi pi-check" (click)="continuarIns()" label="Continuar"></button>
-		<button type="button" pButton icon="pi pi-times" class="ui-button-raised ui-button-info" (click)="cancelar()" label="Cancelar"></button>
+		<button
+			type="button"
+			pButton
+			icon="pi pi-times"
+			class="ui-button-raised ui-button-info"
+			(click)="cancelar()"
+			label="Cancelar"
+		></button>
 	</p-footer>
 </p-dialog>
 
@@ -111,7 +119,14 @@
 
 	<p-footer>
 		<button type="button" pButton icon="pi pi-check" (click)="continuarReso()" label="Continuar"></button>
-		<button type="button" pButton icon="pi pi-times" class="ui-button-raised ui-button-info" (click)="cancelar()" label="Cancelar"></button>
+		<button
+			type="button"
+			pButton
+			icon="pi pi-times"
+			class="ui-button-raised ui-button-info"
+			(click)="cancelar()"
+			label="Cancelar"
+		></button>
 	</p-footer>
 </p-dialog>
 
@@ -128,7 +143,14 @@
 
 	<p-footer>
 		<button type="button" pButton icon="pi pi-check" (click)="displayReso = !displayReso" label="Continuar"></button>
-		<button type="button" pButton icon="pi pi-times" class="ui-button-raised ui-button-info" (click)="cancelar()" label="Cancelar"></button>
+		<button
+			type="button"
+			pButton
+			icon="pi pi-times"
+			class="ui-button-raised ui-button-info"
+			(click)="cancelar()"
+			label="Cancelar"
+		></button>
 	</p-footer>
 </p-dialog>
 

@@ -7,11 +7,11 @@ export class Resource {
 	public extension: string;
 
 	constructor() {
-		this._id = "";
-		this.name = "";
-		this.path = "";
-		this.type = "";
-		this.description = "";
-		this.extension = "";
+		this._id = null;
+		this.name = null;
+		this.path = null;
+		this.type = null;
+		this.description = null;
+		this.extension = null;
 	}
 }
