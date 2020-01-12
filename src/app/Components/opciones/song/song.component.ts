@@ -264,5 +264,40 @@ export class SongComponent implements OnInit {
 		this.new = true;
 	}
 
+	onUpload(event, type: string) {
+		console.log(event.files[0]);
+		this.songSelected.instruments.map(ins => {
+			if (ins.name == type) {
+				console.log(ins);
+				this.service.uploadVideo(event.files[0]).subscribe(res => {
+					if (res.status == "ok") {
+						var oldName = event.files[0].name;
+						var newName = ins.resource + oldName.split(".")[1];
+						console.log(oldName);
+						this.service.updateUpload(oldName.split(".")[0], newName, oldName.split(".")[1]).subscribe(resUpd => {
+							if (resUpd.status == "ok") {
+								console.log(resUpd);
+								var newRes = new Resource();
+								newRes._id = ins.resource;
+								newRes.name = ins.name;
+								newRes.path = "videos/" + newName;
+								newRes.type = "Video";
+								newRes.description = "Video from " + this.songSelected.songName + "' " + ins.name;
+								newRes.extension = oldName.split(".")[1];
+								this.service.updateResource(newRes).subscribe(resUpRe => {
+									console.log(resUpRe);
+								});
+								this.songSelected.resources.push(newRes);
+								this.service.updateSong(this.songSelected).subscribe(resUpSo => {
+									console.log(resUpSo);
+								});
+							}
+						});
+					}
+				});
+			}
+		});
+	}
+
 	ngOnInit() {}
 }

@@ -29,5 +29,9 @@ export const environment = {
 	urlGetAllInstruments: "https://xparback.herokuapp.com/inst",
 	urlCreateInstrument: "https://xparback.herokuapp.com/inst",
 	urlUpdateInstrument: "https://xparback.herokuapp.com/inst",
-	urlDeleteInstrument: "https://xparback.herokuapp.com/inst"
+	urlDeleteInstrument: "https://xparback.herokuapp.com/inst",
+
+	// Upload
+	urlUploadVideo: "https://xparback.herokuapp.com/upload/video",
+	urlUpdateUploadResource: "https://xparback.herokuapp.com/update-resource"
 };

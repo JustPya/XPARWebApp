@@ -1,6 +1,5 @@
-import { Resource } from "./resource";
 import { Instrument } from "./instrument";
-import { Band } from "./band";
+import { Resource } from "./resource";
 
 export class Song {
 	public _id: string;

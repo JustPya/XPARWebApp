@@ -139,18 +139,50 @@
 	[style]="{ width: '550px', minWidth: '200px' }"
 	[closable]="false"
 >
-	<h3>Seleccione la banda</h3>
+	<h3>Debe cargar cada uno de los archivos con el botón Upload antes de hacer click en el botón finalizar</h3>
+	<div *ngIf="instrumentos.Voice">
+		<h3>Voz</h3>
+		<p-fileUpload
+			name="demo[]"
+			customUpload="true"
+			(uploadHandler)="onUpload($event, 'Voice')"
+			accept="video/*"
+			maxFileSize="1000000000"
+		></p-fileUpload>
+	</div>
+	<div *ngIf="instrumentos.Guitar">
+		<h3>Guitarra</h3>
+		<p-fileUpload
+			name="demo[]"
+			customUpload="true"
+			(uploadHandler)="onUpload($event, 'Guitar')"
+			accept="video/*"
+			maxFileSize="1000000000"
+		></p-fileUpload>
+	</div>
+	<div *ngIf="instrumentos.Bass">
+		<h3>Bajo</h3>
+		<p-fileUpload
+			name="demo[]"
+			customUpload="true"
+			(uploadHandler)="onUpload($event, 'Bass')"
+			accept="video/*"
+			maxFileSize="1000000000"
+		></p-fileUpload>
+	</div>
+	<div *ngIf="instrumentos.Drums">
+		<h3>Bateria</h3>
+		<p-fileUpload
+			name="demo[]"
+			customUpload="true"
+			(uploadHandler)="onUpload($event, 'Drums')"
+			accept="video/*"
+			maxFileSize="1000000000"
+		></p-fileUpload>
+	</div>
 
 	<p-footer>
-		<button type="button" pButton icon="pi pi-check" (click)="displayReso = !displayReso" label="Continuar"></button>
-		<button
-			type="button"
-			pButton
-			icon="pi pi-times"
-			class="ui-button-raised ui-button-info"
-			(click)="cancelar()"
-			label="Cancelar"
-		></button>
+		<button type="button" pButton icon="pi pi-check" (click)="displayReso = !displayReso" label="Finalizar"></button>
 	</p-footer>
 </p-dialog>
 

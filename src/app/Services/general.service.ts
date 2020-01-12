@@ -125,4 +125,19 @@ export class GeneralService {
 	deleteInstrument(inst: Instrument): Observable<Response> {
 		return this.http.delete<Response>(environment.urlDeleteInstrument + "/" + inst._id);
 	}
+
+	// Upload
+	uploadVideo(file: File): Observable<Response> {
+		let body = { file: file };
+		return this.http.post<Response>(environment.urlUploadVideo, body);
+	}
+
+	updateUpload(oldName: string, newName: string, type: string): Observable<Response> {
+		let body = {
+			type: type,
+			filename: oldName,
+			newFilename: newName
+		};
+		return this.http.post<Response>(environment.urlUpdateUploadResource, body);
+	}
 }

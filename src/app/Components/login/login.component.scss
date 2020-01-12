@@ -4,58 +4,58 @@ $background-input: #ebd8f5;
 $background-button: $background-primary;
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .bg-img {
-  background-image: url('/assets/bglogin.png');
+	background-image: url("/assets/bglogin.png");
 
-  min-height: 100vh;
+	min-height: 100vh;
 
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-  font-size: 16px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+	font-size: 16px;
 }
 
 .container {
-  position: absolute;
-  right: 0;
-  margin-top: calc(50vh - 185px);
-  margin-right: 8vw;
-  //margin: 16em 13em 0em 0em;
-  max-width: 30em;
-  padding: 2em;
-  background-color: $background-container;
-  box-shadow: 3px 3px 13px #2e2e2e;
+	position: absolute;
+	right: 0;
+	margin-top: calc(50vh - 185px);
+	margin-right: 8vw;
+	//margin: 16em 13em 0em 0em;
+	max-width: 30em;
+	padding: 2em;
+	background-color: $background-container;
+	box-shadow: 5px 5px 13px #2e2e2e;
 }
 
-input[type='text'],
-input[type='password'] {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  border: none;
-  background: $background-input;
+input[type="text"],
+input[type="password"] {
+	width: 100%;
+	padding: 15px;
+	margin: 5px 0 22px 0;
+	border: none;
+	background: $background-input;
 }
 
-input[type='text']:focus,
-input[type='password']:focus {
-  background-color: $background-input;
-  outline: none;
+input[type="text"]:focus,
+input[type="password"]:focus {
+	background-color: $background-input;
+	outline: none;
 }
 
 .btn {
-  background-color: $background-button;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
+	background-color: $background-button;
+	color: white;
+	padding: 16px 20px;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+	opacity: 0.9;
 }
 
 .btn:hover {
-  opacity: 1;
+	opacity: 1;
 }

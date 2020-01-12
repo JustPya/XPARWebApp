@@ -17,6 +17,7 @@ import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { InputTextareaModule } from "primeng/inputtextarea";
 import { ToastModule } from "primeng/toast";
 import { DropdownModule } from "primeng/dropdown";
+import { FileUploadModule } from "primeng/fileupload";
 
 // Componentes
 import { LoginComponent } from "./Components/login/login.component";
@@ -55,7 +56,8 @@ import { ScenographyComponent } from "./Components/opciones/scenography/scenogra
 		ConfirmDialogModule,
 		InputTextareaModule,
 		ToastModule,
-		DropdownModule
+		DropdownModule,
+		FileUploadModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]
