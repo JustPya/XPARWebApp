@@ -139,7 +139,10 @@
 	[style]="{ width: '550px', minWidth: '200px' }"
 	[closable]="false"
 >
-	<h3>Debe cargar cada uno de los archivos con el botón Upload antes de hacer click en el botón finalizar</h3>
+	<h3>
+		Debe cargar cada uno de los archivos con el botón <span style="color:red">Subir</span> antes de hacer click en el botón
+		finalizar
+	</h3>
 	<div *ngIf="instrumentos.Voice">
 		<h3>Voz</h3>
 		<p-fileUpload
@@ -148,6 +151,10 @@
 			(uploadHandler)="onUpload($event, 'Voice')"
 			accept="video/*"
 			maxFileSize="1000000000"
+			chooseLabel="Seleccionar"
+			uploadLabel="Subir"
+			cancelLabel="Cancelar"
+			url="http://localhost:3000/upload/video"
 		></p-fileUpload>
 	</div>
 	<div *ngIf="instrumentos.Guitar">
@@ -158,6 +165,10 @@
 			(uploadHandler)="onUpload($event, 'Guitar')"
 			accept="video/*"
 			maxFileSize="1000000000"
+			chooseLabel="Seleccionar"
+			uploadLabel="Subir"
+			cancelLabel="Cancelar"
+			url="http://localhost:3000/upload/video"
 		></p-fileUpload>
 	</div>
 	<div *ngIf="instrumentos.Bass">
@@ -168,6 +179,10 @@
 			(uploadHandler)="onUpload($event, 'Bass')"
 			accept="video/*"
 			maxFileSize="1000000000"
+			chooseLabel="Seleccionar"
+			uploadLabel="Subir"
+			cancelLabel="Cancelar"
+			url="http://localhost:3000/upload/video"
 		></p-fileUpload>
 	</div>
 	<div *ngIf="instrumentos.Drums">
@@ -178,11 +193,15 @@
 			(uploadHandler)="onUpload($event, 'Drums')"
 			accept="video/*"
 			maxFileSize="1000000000"
+			chooseLabel="Seleccionar"
+			uploadLabel="Subir"
+			cancelLabel="Cancelar"
+			url="http://localhost:3000/upload/video"
 		></p-fileUpload>
 	</div>
 
 	<p-footer>
-		<button type="button" pButton icon="pi pi-check" (click)="displayReso = !displayReso" label="Finalizar"></button>
+		<button type="button" pButton icon="pi pi-check" (click)="cancelar()" label="Finalizar"></button>
 	</p-footer>
 </p-dialog>
 

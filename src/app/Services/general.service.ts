@@ -100,7 +100,7 @@ export class GeneralService {
 			description: resource.description,
 			extension: resource.extension
 		};
-		return this.http.patch<Response>(environment.urlUpdateSong + "/" + resource._id, body);
+		return this.http.patch<Response>(environment.urlUpdateResource + "/" + resource._id, body);
 	}
 
 	deleteResource(resource: Resource): Observable<Response> {
@@ -127,8 +127,9 @@ export class GeneralService {
 	}
 
 	// Upload
-	uploadVideo(file: File): Observable<Response> {
-		let body = { file: file };
+	uploadVideo(fileToUp: File): Observable<Response> {
+		let body = new FormData();
+		body.append("file", fileToUp);
 		return this.http.post<Response>(environment.urlUploadVideo, body);
 	}
 

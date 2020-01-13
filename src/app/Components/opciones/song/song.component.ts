@@ -265,16 +265,17 @@ export class SongComponent implements OnInit {
 	}
 
 	onUpload(event, type: string) {
-		console.log(event.files[0]);
+		console.log(event.files);
 		this.songSelected.instruments.map(ins => {
 			if (ins.name == type) {
 				console.log(ins);
 				this.service.uploadVideo(event.files[0]).subscribe(res => {
+					console.log(res);
 					if (res.status == "ok") {
 						var oldName = event.files[0].name;
-						var newName = ins.resource + oldName.split(".")[1];
+						var newName = ins.resource + "." + oldName.split(".")[1];
 						console.log(oldName);
-						this.service.updateUpload(oldName.split(".")[0], newName, oldName.split(".")[1]).subscribe(resUpd => {
+						this.service.updateUpload(oldName.split(".")[0] + ".mp4", newName, "videos").subscribe(resUpd => {
 							if (resUpd.status == "ok") {
 								console.log(resUpd);
 								var newRes = new Resource();
@@ -284,6 +285,7 @@ export class SongComponent implements OnInit {
 								newRes.type = "Video";
 								newRes.description = "Video from " + this.songSelected.songName + "' " + ins.name;
 								newRes.extension = oldName.split(".")[1];
+								console.log(newRes);
 								this.service.updateResource(newRes).subscribe(resUpRe => {
 									console.log(resUpRe);
 								});
