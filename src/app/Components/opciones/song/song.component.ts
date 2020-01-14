@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Song } from "src/app/Model/song";
 import { GeneralService } from "src/app/Services/general.service";
 import { Response } from "src/app/Model/response";
-import { ConfirmationService } from "primeng/api";
+import { ConfirmationService, MessageService } from "primeng/api";
 import { Band } from "src/app/Model/band";
 import { Resource } from "src/app/Model/resource";
 import { Instrument } from "src/app/Model/instrument";
@@ -11,7 +11,7 @@ import { Instrument } from "src/app/Model/instrument";
 	selector: "app-song",
 	templateUrl: "./song.component.html",
 	styleUrls: ["./song.component.scss"],
-	providers: [ConfirmationService]
+	providers: [ConfirmationService, MessageService]
 })
 export class SongComponent implements OnInit {
 	public response: Response;
@@ -39,7 +39,11 @@ export class SongComponent implements OnInit {
 		Drums: false
 	};
 
-	constructor(private service: GeneralService, private confirmationService: ConfirmationService) {
+	constructor(
+		private service: GeneralService,
+		private confirmationService: ConfirmationService,
+		private messageService: MessageService
+	) {
 		this.getAllSongs();
 		this.getAllBands();
 	}
@@ -115,7 +119,9 @@ export class SongComponent implements OnInit {
 		} else {
 			this.displayAdd = false;
 			this.displayInst = true;
-			console.log("hacer update", this.songSelected);
+			this.service.updateSong(this.songSelected).subscribe(resUpSo => {
+				console.log(resUpSo);
+			});
 			this.verificarInstrumentos();
 		}
 	}
@@ -287,10 +293,12 @@ export class SongComponent implements OnInit {
 								newRes.extension = oldName.split(".")[1];
 								console.log(newRes);
 								this.service.updateResource(newRes).subscribe(resUpRe => {
+									this.messageService.add({ severity: "success", summary: "Video subido con éxito" });
 									console.log(resUpRe);
 								});
 								this.songSelected.resources.push(newRes);
 								this.service.updateSong(this.songSelected).subscribe(resUpSo => {
+									this.messageService.add({ severity: "success", summary: "Canción actualizada satisfactoriamente." });
 									console.log(resUpSo);
 								});
 							}
