@@ -56,7 +56,14 @@
 	<h3>Extension</h3>
 	<input type="text" pInputText style="width: 100%;" [(ngModel)]="resourceSelected.extension" [disabled]="true" />
 	<br /><br />
-	<button type="button" pButton (click)="addFile(resourceSelected)" style="width: 100%;" label="Agregar archivo"></button>
+	<button
+		type="button"
+		pButton
+		(click)="addFile(resourceSelected)"
+		style="width: 100%;"
+		label="Agregar archivo"
+		*ngIf="!new"
+	></button>
 	<p-footer>
 		<button
 			type="button"
@@ -85,7 +92,30 @@
 	[style]="{ width: '550px', minWidth: '200px' }"
 	[closable]="false"
 >
-	{{ resourceSelected._id }}
+	<div>
+		<h3>Archivo de recurso {{ resourceSelected.name }}</h3>
+		<p-fileUpload
+			name="demo[]"
+			customUpload="true"
+			(uploadHandler)="onUpload($event, 'Voice')"
+			accept="video/*"
+			maxFileSize="1000000000"
+			chooseLabel="Seleccionar"
+			uploadLabel="Subir"
+			cancelLabel="Cancelar"
+			url="http://localhost:3000/upload/video"
+		></p-fileUpload>
+	</div>
+	<p-footer>
+		<button
+			type="button"
+			pButton
+			icon="pi pi-times"
+			class="ui-button-raised ui-button-info"
+			(click)="cancel()"
+			label="Cancelar"
+		></button>
+	</p-footer>
 </p-dialog>
 
 <p-toast [style]="{ marginTop: '80px' }"></p-toast>

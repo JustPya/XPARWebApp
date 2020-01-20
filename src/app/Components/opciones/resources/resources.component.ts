@@ -84,6 +84,7 @@ export class ResourcesComponent implements OnInit {
 					});
 					this.cancel();
 					this.resourceSelected = resp.message;
+					this.addFile(this.resourceSelected);
 				}
 			});
 		} else {
@@ -118,6 +119,26 @@ export class ResourcesComponent implements OnInit {
 	addFile(res: Resource) {
 		this.displayAddFile = true;
 		this.resourceSelected = res;
+  }
+  
+  onUpload(event, type: string) {
+		console.log(event.files);
+		this.songSelected.instruments.map(ins => {
+			if (ins.name == type) {
+				console.log(ins);
+				this.service.uploadVideo(event.files[0]).subscribe(res => {
+					console.log(res);
+					if (res.status == "ok") {
+								this.service.updateResource(newRes).subscribe(resUpRe => {
+									this.messageService.add({ severity: "success", summary: "Video subido con éxito" });
+									console.log(resUpRe);
+								});
+							}
+						});
+					}
+				});
+			}
+		});
 	}
 
 	ngOnInit() {}
