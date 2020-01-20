@@ -18,6 +18,7 @@ import { InputTextareaModule } from "primeng/inputtextarea";
 import { ToastModule } from "primeng/toast";
 import { DropdownModule } from "primeng/dropdown";
 import { FileUploadModule } from "primeng/fileupload";
+import { ProgressSpinnerModule } from "primeng/progressspinner";
 
 // Componentes
 import { LoginComponent } from "./Components/login/login.component";
@@ -57,7 +58,8 @@ import { ScenographyComponent } from "./Components/opciones/scenography/scenogra
 		InputTextareaModule,
 		ToastModule,
 		DropdownModule,
-		FileUploadModule
+		FileUploadModule,
+		ProgressSpinnerModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

@@ -16,23 +16,28 @@ export class AuthenticationComponent implements OnInit {
 	public adminSelected: Authentication = new Authentication();
 	public displayModify: boolean = false;
 	public new: boolean = true;
+	public progress: boolean = false;
 
-	constructor(private service: GeneralService, private confirmationService: ConfirmationService, private messageService: MessageService) {
+	constructor(
+		private service: GeneralService,
+		private confirmationService: ConfirmationService,
+		private messageService: MessageService
+	) {
 		this.getAllAdmins();
 	}
 
 	getAllAdmins() {
+		this.progress = true;
 		this.service.getAllAdmins().subscribe(
 			response => {
 				this.response = response;
 			},
-			error => {
-				console.error("Error getAllAdmins", error);
-			},
+			error => {},
 			() => {
 				if (this.response.status == "ok") {
 					this.admins = this.response.message;
 				}
+				this.progress = false;
 			}
 		);
 	}
@@ -58,19 +63,30 @@ export class AuthenticationComponent implements OnInit {
 		}
 
 		this.displayModify = false;
+		this.progress = true;
 		if (!this.new) {
 			this.service.updateAdmin(this.adminSelected).subscribe(response => {
 				if (response.status == "ok") {
-					this.messageService.add({ severity: "success", summary: "Administrador agregado", detail: "Agregado satisfactoriamente." });
+					this.messageService.add({
+						severity: "success",
+						summary: "Administrador agregado",
+						detail: "Agregado satisfactoriamente."
+					});
 					this.adminSelected = new Authentication();
 				}
+				this.progress = false;
 			});
 		} else {
 			this.service.createAdmin(this.adminSelected).subscribe(response => {
 				if (response.status == "ok") {
-					this.messageService.add({ severity: "success", summary: "Administrador actualizado", detail: "Actualizado satisfactoriamente." });
+					this.messageService.add({
+						severity: "success",
+						summary: "Administrador actualizado",
+						detail: "Actualizado satisfactoriamente."
+					});
 					this.getAllAdmins();
 				}
+				this.progress = false;
 			});
 		}
 	}
@@ -83,11 +99,17 @@ export class AuthenticationComponent implements OnInit {
 			acceptLabel: "Si",
 			rejectLabel: "No",
 			accept: () => {
+				this.progress = true;
 				this.service.deleteAdmin(this.adminSelected).subscribe(response => {
 					if (response.status == "ok") {
-						this.messageService.add({ severity: "success", summary: "Administrador eliminado", detail: "Eliminado satisfactoriamente." });
+						this.messageService.add({
+							severity: "success",
+							summary: "Administrador eliminado",
+							detail: "Eliminado satisfactoriamente."
+						});
 						this.admins = this.admins.filter(b => b._id != this.adminSelected._id);
 					}
+					this.progress = false;
 					this.adminSelected = new Authentication();
 				});
 			}

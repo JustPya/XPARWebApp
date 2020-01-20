@@ -11,3 +11,9 @@
     <button type="submit" class="btn" (click)="login()">Ingresar</button>
   </form>
 </div>
+
+<div class="ui-g-12 ui-md-12 progress" id="progress" *ngIf="progress">
+	<div class="spinner">
+		<p-progressSpinner [style]="{ width: '150px', height: '150px' }"></p-progressSpinner>
+	</div>
+</div>

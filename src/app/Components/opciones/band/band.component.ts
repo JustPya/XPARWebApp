@@ -16,23 +16,28 @@ export class BandComponent implements OnInit {
 	public displayModify: boolean = false;
 	public bandSelected: Band = new Band();
 	public new: boolean = true;
+	public progress: boolean = false;
 
-	constructor(private service: GeneralService, private confirmationService: ConfirmationService, private messageService: MessageService) {
+	constructor(
+		private service: GeneralService,
+		private confirmationService: ConfirmationService,
+		private messageService: MessageService
+	) {
 		this.getAllBands();
 	}
 
 	getAllBands() {
+		this.progress = true;
 		this.service.getAllBands().subscribe(
 			response => {
 				this.response = response;
 			},
-			error => {
-				console.error("Error getAllBands", error);
-			},
+			error => {},
 			() => {
 				if (this.response.status == "ok") {
 					this.bands = this.response.message;
 				}
+				this.progress = false;
 			}
 		);
 	}
@@ -51,11 +56,17 @@ export class BandComponent implements OnInit {
 			acceptLabel: "Si",
 			rejectLabel: "No",
 			accept: () => {
+				this.progress = true;
 				this.service.deleteBand(this.bandSelected).subscribe(response => {
 					if (response.status == "ok") {
-						this.messageService.add({ severity: "success", summary: "Banda eliminada", detail: "Banda eliminada satisfactoriamente." });
+						this.messageService.add({
+							severity: "success",
+							summary: "Banda eliminada",
+							detail: "Banda eliminada satisfactoriamente."
+						});
 						this.bands = this.bands.filter(b => b._id != this.bandSelected._id);
 					}
+					this.progress = false;
 					this.bandSelected = new Band();
 				});
 			}
@@ -72,22 +83,37 @@ export class BandComponent implements OnInit {
 			return;
 		}
 		if (!this.bandSelected.description.trim()) {
-			this.messageService.add({ severity: "warn", summary: "Descripción vacía", detail: "La descripción de la banda no puede ser vacía." });
+			this.messageService.add({
+				severity: "warn",
+				summary: "Descripción vacía",
+				detail: "La descripción de la banda no puede ser vacía."
+			});
 			return;
 		}
 		this.displayModify = false;
+		this.progress = true;
 		if (!this.new) {
 			this.service.updateBand(this.bandSelected).subscribe(response => {
 				if (response.status == "ok") {
-					this.messageService.add({ severity: "success", summary: "Banda actualizada", detail: "Banda actualizada satisfactoriamente." });
+					this.messageService.add({
+						severity: "success",
+						summary: "Banda actualizada",
+						detail: "Banda actualizada satisfactoriamente."
+					});
 				}
+				this.progress = false;
 			});
 		} else {
 			this.service.createBand(this.bandSelected).subscribe(response => {
 				if (response.status == "ok") {
-					this.messageService.add({ severity: "success", summary: "Banda agregada", detail: "Banda agregada satisfactoriamente." });
+					this.messageService.add({
+						severity: "success",
+						summary: "Banda agregada",
+						detail: "Banda agregada satisfactoriamente."
+					});
 					this.getAllBands();
 				}
+				this.progress = false;
 			});
 		}
 		this.bandSelected = new Band();

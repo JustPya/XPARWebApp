@@ -38,6 +38,7 @@ export class SongComponent implements OnInit {
 		Bass: false,
 		Drums: false
 	};
+	public progress: boolean = false;
 
 	constructor(
 		private service: GeneralService,
@@ -49,35 +50,33 @@ export class SongComponent implements OnInit {
 	}
 
 	getAllSongs() {
+		this.progress = true;
 		this.service.getAllSongs().subscribe(
 			response => {
 				this.response = response;
 			},
-			error => {
-				console.error("Error in getAllSongs()", error);
-			},
+			error => {},
 			() => {
 				if ((this.response.status = "ok")) {
 					this.songs = this.response.message;
-					console.log(this.response.message);
-					console.log(this.songs);
 				}
+				this.progress = false;
 			}
 		);
 	}
 
 	getAllBands() {
+		this.progress = true;
 		this.service.getAllBands().subscribe(
 			response => {
 				this.response = response;
 			},
-			error => {
-				console.error("Error getAllBands", error);
-			},
+			error => {},
 			() => {
 				if (this.response.status == "ok") {
 					this.bands = this.response.message;
 				}
+				this.progress = false;
 			}
 		);
 	}
@@ -94,40 +93,57 @@ export class SongComponent implements OnInit {
 
 	continuarIns() {
 		if (this.songSelected.band == "") {
-			console.log("No selecciono banda");
+			this.messageService.add({
+				severity: "warn",
+				summary: "Nombre de banda vacío",
+				detail: "Por favor verifique este campo."
+			});
 			return;
 		}
 		if (this.songSelected.songName == "") {
-			console.log("No selecciono nombre de cancion");
+			this.messageService.add({
+				severity: "warn",
+				summary: "Nombre de canción vacío",
+				detail: "Por favor verifique este campo."
+			});
 			return;
 		}
 		if (this.new) {
+			this.progress = true;
 			this.service.createSong(this.songSelected).subscribe(
 				response => {
 					this.response = response;
 				},
 				error => {},
 				() => {
-					console.log(this.response);
 					if (this.response.status == "ok") {
 						this.songSelected = this.response.message;
 						this.displayAdd = false;
 						this.displayInst = true;
+						this.messageService.add({
+							severity: "warn",
+							summary: "Canción creada con éxito"
+						});
 					}
+					this.progress = false;
 				}
 			);
 		} else {
 			this.displayAdd = false;
 			this.displayInst = true;
+			this.progress = true;
 			this.service.updateSong(this.songSelected).subscribe(resUpSo => {
-				console.log(resUpSo);
+				this.messageService.add({
+					severity: "warn",
+					summary: "Canción actualizada satisfactoriamente"
+				});
+				this.progress = false;
 			});
 			this.verificarInstrumentos();
 		}
 	}
 
 	continuarReso() {
-		console.log(this.instrumentos);
 		if (this.instrumentosClick.Voice && this.instrumentos.Voice) {
 			this.createInsAndReso("Voice");
 		}
@@ -145,6 +161,7 @@ export class SongComponent implements OnInit {
 	}
 
 	createInsAndReso(nameIns: string) {
+		this.progress = true;
 		var newResource = new Resource();
 		var newInstrument = new Instrument();
 		newResource.name = nameIns;
@@ -160,12 +177,17 @@ export class SongComponent implements OnInit {
 							if ((resUIns.status = "ok")) {
 								newInstrument = resUIns.message;
 								this.songSelected.instruments.push(newInstrument);
-								this.service.updateSong(this.songSelected).subscribe(resSong => {});
+								this.service.updateSong(this.songSelected).subscribe(resSong => {
+									this.progress = false;
+								});
 							}
+							this.progress = false;
 						});
 					}
+					this.progress = false;
 				});
 			}
+			this.progress = false;
 		});
 	}
 
@@ -214,17 +236,18 @@ export class SongComponent implements OnInit {
 
 	modified() {
 		this.displayAdd = false;
+		this.progress = true;
 		if (!this.new) {
 			this.service.updateSong(this.songSelected).subscribe(response => {
-				console.log(response);
+				this.progress = false;
 			});
 		} else {
 			this.service.createSong(this.songSelected).subscribe(response => {
 				if (response.status == "ok") {
 					this.getAllSongs();
 				}
+				this.progress = false;
 			});
-			console.log("Added", this.songSelected);
 		}
 	}
 
@@ -236,11 +259,12 @@ export class SongComponent implements OnInit {
 			acceptLabel: "Si",
 			rejectLabel: "No",
 			accept: () => {
+				this.progress = true;
 				this.service.deleteSong(this.songSelected).subscribe(response => {
 					if (response.status == "ok") {
 						this.songs = this.songs.filter(b => b._id != this.songSelected._id);
 					}
-					console.log(response);
+					this.progress = false;
 					this.songSelected = new Song();
 					this.bandSelected = new Band();
 				});
@@ -271,19 +295,15 @@ export class SongComponent implements OnInit {
 	}
 
 	onUpload(event, type: string) {
-		console.log(event.files);
+		this.progress = true;
 		this.songSelected.instruments.map(ins => {
 			if (ins.name == type) {
-				console.log(ins);
 				this.service.uploadVideo(event.files[0]).subscribe(res => {
-					console.log(res);
 					if (res.status == "ok") {
 						var oldName = event.files[0].name;
 						var newName = ins.resource + "." + oldName.split(".")[1];
-						console.log(oldName);
 						this.service.updateUpload(oldName.split(".")[0] + ".mp4", newName, "videos").subscribe(resUpd => {
 							if (resUpd.status == "ok") {
-								console.log(resUpd);
 								var newRes = new Resource();
 								newRes._id = ins.resource;
 								newRes.name = ins.name;
@@ -291,19 +311,20 @@ export class SongComponent implements OnInit {
 								newRes.type = "Video";
 								newRes.description = "Video from " + this.songSelected.songName + "' " + ins.name;
 								newRes.extension = oldName.split(".")[1];
-								console.log(newRes);
 								this.service.updateResource(newRes).subscribe(resUpRe => {
 									this.messageService.add({ severity: "success", summary: "Video subido con éxito" });
-									console.log(resUpRe);
+									this.progress = false;
 								});
 								this.songSelected.resources.push(newRes);
 								this.service.updateSong(this.songSelected).subscribe(resUpSo => {
 									this.messageService.add({ severity: "success", summary: "Canción actualizada satisfactoriamente." });
-									console.log(resUpSo);
+									this.progress = false;
 								});
 							}
+							this.progress = false;
 						});
 					}
+					this.progress = false;
 				});
 			}
 		});

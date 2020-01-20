@@ -17,19 +17,21 @@ export class ResourcesComponent implements OnInit {
 	public displayModify: boolean = false;
 	public displayAddFile: boolean = false;
 	public new: boolean = true;
+	public progress: boolean = false;
 
 	constructor(private service: GeneralService, private messageService: MessageService) {
 		this.getAllResources();
 	}
 
 	getAllResources() {
+		this.progress = true;
 		this.service.getAllResources().subscribe(
 			resp => {
 				this.response = resp;
 			},
 			error => {},
 			() => {
-				console.log(this.response);
+				this.progress = false;
 				if (this.response.status == "ok") {
 					this.resources = this.response.message;
 				}
@@ -38,6 +40,7 @@ export class ResourcesComponent implements OnInit {
 	}
 
 	delete(res: Resource) {
+		this.progress = true;
 		this.service.deleteResource(res).subscribe(resp => {
 			if (resp.status == "ok") {
 				this.resources = this.resources.filter(b => b._id != res._id);
@@ -47,6 +50,7 @@ export class ResourcesComponent implements OnInit {
 					detail: "Recurso eliminado satisfactoriamente."
 				});
 			}
+			this.progress = false;
 		});
 	}
 
@@ -74,6 +78,7 @@ export class ResourcesComponent implements OnInit {
 			});
 			return;
 		}
+		this.progress = true;
 		if (this.new) {
 			this.service.createResource(this.resourceSelected).subscribe(resp => {
 				if (resp.status == "ok") {
@@ -86,6 +91,7 @@ export class ResourcesComponent implements OnInit {
 					this.resourceSelected = resp.message;
 					this.addFile(this.resourceSelected);
 				}
+				this.progress = false;
 			});
 		} else {
 			this.service.updateResource(this.resourceSelected).subscribe(resp => {
@@ -97,6 +103,7 @@ export class ResourcesComponent implements OnInit {
 					});
 					this.cancel();
 				}
+				this.progress = false;
 			});
 		}
 	}
@@ -119,25 +126,29 @@ export class ResourcesComponent implements OnInit {
 	addFile(res: Resource) {
 		this.displayAddFile = true;
 		this.resourceSelected = res;
-  }
-  
-  onUpload(event, type: string) {
-		console.log(event.files);
-		this.songSelected.instruments.map(ins => {
-			if (ins.name == type) {
-				console.log(ins);
-				this.service.uploadVideo(event.files[0]).subscribe(res => {
-					console.log(res);
-					if (res.status == "ok") {
-								this.service.updateResource(newRes).subscribe(resUpRe => {
-									this.messageService.add({ severity: "success", summary: "Video subido con éxito" });
-									console.log(resUpRe);
-								});
-							}
+	}
+
+	onUpload(event, type: string) {
+		this.progress = true;
+		this.service.uploadVideo(event.files[0]).subscribe(resUpload => {
+			if (resUpload.status == "ok") {
+				var oldName = event.files[0].name;
+				var newName = this.resourceSelected._id + "." + oldName.split(".")[1];
+				this.service.updateUpload(oldName.split(".")[0] + ".mp4", newName, "videos").subscribe(resUpdate => {
+					if (resUpdate.status == "ok") {
+						this.resourceSelected.path = "videos/" + newName;
+						this.resourceSelected.type = "Video";
+						this.resourceSelected.extension = "." + oldName.split(".")[1];
+						this.service.updateResource(this.resourceSelected).subscribe(resUpRe => {
+							this.messageService.add({ severity: "success", summary: "Video subido con éxito" });
+							this.progress = false;
+							this.getAllResources();
 						});
 					}
+					this.progress = false;
 				});
 			}
+			this.progress = false;
 		});
 	}
 

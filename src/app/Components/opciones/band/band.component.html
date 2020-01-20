@@ -65,3 +65,9 @@
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 
 <p-toast [style]="{ marginTop: '80px' }"></p-toast>
+
+<div class="ui-g-12 ui-md-12 progress" id="progress" *ngIf="progress">
+	<div class="spinner">
+		<p-progressSpinner [style]="{ width: '150px', height: '150px' }"></p-progressSpinner>
+	</div>
+</div>

@@ -1,26 +1,26 @@
 <div class="ui-g container">
-  <div class="ui-g-12 header">
-    <p-toolbar>
-      <div class="ui-toolbar-group-left">
-        <span class="logo-name">xpar</span>
-        <span class="logo-name admin">administrador</span>
-      </div>
+	<div class="ui-g-12 header">
+		<p-toolbar>
+			<div class="ui-toolbar-group-left">
+				<span class="logo-name">xpar</span>
+				<span class="logo-name admin">administrador</span>
+			</div>
 
-      <div class="ui-toolbar-group-right">
-        <button pButton type="button" class="sign-off" label="Cerrar sesión" (click)="signOff()"></button>
-      </div>
-    </p-toolbar>
-  </div>
+			<div class="ui-toolbar-group-right">
+				<button pButton type="button" class="sign-off" label="Cerrar sesión" (click)="signOff()"></button>
+			</div>
+		</p-toolbar>
+	</div>
 
-  <div class="ui-g-12 ui-md-2 menu">
-    <p-menu [model]="items" class="my-menu"></p-menu>
-  </div>
+	<div class="ui-g-12 ui-md-2 menu">
+		<p-menu [model]="items" class="my-menu"></p-menu>
+	</div>
 
-  <div class="ui-g-12 ui-md-10 ui-g-nopad contenedor" [ngSwitch]="option">
-    <app-band *ngSwitchCase="1"></app-band>
-    <app-song *ngSwitchCase="2"></app-song>
-    <app-instrument *ngSwitchCase="3"></app-instrument>
-    <app-resources *ngSwitchCase="4"></app-resources>
-    <app-authentication *ngSwitchCase="5"></app-authentication>
-  </div>
+	<div class="ui-g-12 ui-md-10 ui-g-nopad contenedor" [ngSwitch]="option">
+		<app-band *ngSwitchCase="1"></app-band>
+		<app-song *ngSwitchCase="2"></app-song>
+		<app-instrument *ngSwitchCase="3"></app-instrument>
+		<app-resources *ngSwitchCase="4"></app-resources>
+		<app-authentication *ngSwitchCase="5"></app-authentication>
+	</div>
 </div>
