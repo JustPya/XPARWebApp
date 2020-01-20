@@ -1,65 +1,58 @@
 <div class="ui-g">
-	<div class="ui-g-12">
-		<div class="ui-g-6">
-			<h2>
-				Administradores
-			</h2>
-		</div>
-		<div class="ui-g-6">
-			<button pButton (click)="addAdmin()" style="position: absolute; right: 10px; width: 100px;">Agregar</button>
-		</div>
-	</div>
-	<div class="ui-g-12">
-		<p-table [value]="admins" [paginator]="true" [rows]="10">
-			<ng-template pTemplate="header">
-				<tr>
-					<th style="width: 56%;">Usuario</th>
-					<th style="width: 22%;">Modificar</th>
-					<th style="width: 22%;">Eliminar</th>
-				</tr>
-			</ng-template>
-			<ng-template pTemplate="body" let-admin>
-				<tr>
-					<td>{{ admin.username }}</td>
-					<td class="modificar" (click)="modify(admin)">Modificar</td>
-					<td class="eliminar" (click)="delete(admin)">Eliminar</td>
-				</tr>
-			</ng-template>
-		</p-table>
-	</div>
+  <div class="ui-g-12">
+    <div class="ui-g-6">
+      <h2>
+        Administradores
+      </h2>
+    </div>
+    <div class="ui-g-6">
+      <button pButton (click)="addAdmin()" style="position: absolute; right: 10px; width: 100px;">Agregar</button>
+    </div>
+  </div>
+  <div class="ui-g-12">
+    <p-table [value]="admins" [paginator]="true" [rows]="10">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 56%;">Usuario</th>
+          <th style="width: 22%;">Modificar</th>
+          <th style="width: 22%;">Eliminar</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-admin>
+        <tr>
+          <td>{{ admin.username }}</td>
+          <td class="modificar" (click)="modify(admin)">Modificar</td>
+          <td class="eliminar" (click)="delete(admin)">Eliminar</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 </div>
 
 <p-dialog
-	header="Modificar"
-	[(visible)]="displayModify"
-	[modal]="true"
-	[responsive]="true"
-	[style]="{ width: '550px', minWidth: '200px' }"
-	[closable]="false"
+  header="Modificar"
+  [(visible)]="displayModify"
+  [modal]="true"
+  [responsive]="true"
+  [style]="{ width: '550px', minWidth: '200px' }"
+  [closable]="false"
 >
-	<h3>Username</h3>
-	<input type="text" pInputText style="width: 100%;" [(ngModel)]="adminSelected.username" />
-	<br />
-	<h3>Contraseña</h3>
-	<input type="text" pInputText style="width: 100%;" [(ngModel)]="adminSelected.password" />
-	<p-footer>
-		<button
-			type="button"
-			pButton
-			icon="pi pi-check"
-			class="ui-button-raised ui-button-success"
-			(click)="modified()"
-			label="Aceptar"
-		></button>
-		<button
-			type="button"
-			pButton
-			icon="pi pi-times"
-			class="ui-button-raised ui-button-info"
-			(click)="cancelar()"
-			label="Cancelar"
-		></button>
-	</p-footer>
+  <h3>Username</h3>
+  <input type="text" pInputText style="width: 100%;" [(ngModel)]="adminSelected.username" />
+  <br />
+  <h3>Contraseña</h3>
+  <input type="password" pInputText style="width: 100%;" [(ngModel)]="adminSelected.password" />
+  <p-footer>
+    <button
+      type="button"
+      pButton
+      icon="pi pi-check"
+      class="ui-button-raised ui-button-success"
+      (click)="modified()"
+      label="Aceptar"
+    ></button>
+    <button type="button" pButton icon="pi pi-times" class="ui-button-raised ui-button-info" (click)="cancelar()" label="Cancelar"></button>
+  </p-footer>
 </p-dialog>
 
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
@@ -67,7 +60,7 @@
 <p-toast [style]="{ marginTop: '80px' }"></p-toast>
 
 <div class="ui-g-12 ui-md-12 progress" id="progress" *ngIf="progress">
-	<div class="spinner">
-		<p-progressSpinner [style]="{ width: '150px', height: '150px' }"></p-progressSpinner>
-	</div>
+  <div class="spinner">
+    <p-progressSpinner [style]="{ width: '150px', height: '150px' }"></p-progressSpinner>
+  </div>
 </div>
