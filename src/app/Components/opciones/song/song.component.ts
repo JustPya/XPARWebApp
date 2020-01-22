@@ -121,7 +121,7 @@ export class SongComponent implements OnInit {
 						this.displayAdd = false;
 						this.displayInst = true;
 						this.messageService.add({
-							severity: "warn",
+							severity: "success",
 							summary: "Canción creada con éxito"
 						});
 					}
@@ -134,7 +134,7 @@ export class SongComponent implements OnInit {
 			this.progress = true;
 			this.service.updateSong(this.songSelected).subscribe(resUpSo => {
 				this.messageService.add({
-					severity: "warn",
+					severity: "success",
 					summary: "Canción actualizada satisfactoriamente"
 				});
 				this.progress = false;

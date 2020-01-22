@@ -1,19 +1,30 @@
 .modify {
-	color: blue;
+	color: #227aff;
 	font-weight: bold;
 	cursor: pointer;
 	text-align: center;
 }
 
 .delete {
-	color: red;
+	color: #b92409;
 	font-weight: bold;
 	cursor: pointer;
 	text-align: center;
 }
 
+.add-button {
+	position: absolute;
+	right: 15px;
+	top: 130px;
+	width: 110px;
+	text-align: center;
+	font-size: 16px;
+	background-color: #d191f1;
+	border: 1px solid #d191f1;
+}
+
 ::ng-deep .ui-table .ui-table-thead > tr > th {
-	background-color: #3c6bb8 !important;
+	background-color: #d191f1 !important;
 	color: white !important;
 }
 

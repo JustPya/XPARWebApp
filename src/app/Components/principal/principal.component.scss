@@ -1,7 +1,9 @@
-// $main-color: #c619cb;
-// $secondary-color: #db1ce0;
-$main-color: #5a5a5a;
-$secondary-color: #686868;
+$main-color: #4f1c68;
+$secondary-color: #401755;
+$third-color: #d191f1;
+$back-color: #e0cde9;
+// $main-color: #5a5a5a;
+// $secondary-color: #686868;
 
 .container {
 	font-size: 16px;
@@ -16,6 +18,7 @@ $secondary-color: #686868;
 	border: 0px !important;
 	background-color: $main-color !important;
 	border-radius: 0px !important;
+	box-shadow: 1px 1px 7px #919191;
 }
 
 .logo-name {
@@ -30,9 +33,15 @@ $secondary-color: #686868;
 
 .sign-off {
 	margin: 0px !important;
-	font-size: 16px;
+	font-size: 20px;
 	height: 4em !important;
-	width: 12em;
+	width: 10 em;
+	background-color: transparent;
+	border: 0px solid transparent;
+}
+
+::ng-deep .ui-button:hover {
+	background-color: $secondary-color !important;
 }
 
 .button-menu {
@@ -44,6 +53,12 @@ $secondary-color: #686868;
 .menu {
 	padding: 0px;
 	font-size: 1em !important;
+	background-color: $back-color;
+}
+
+::ng-deep .ui-menu .ui-submenu-header {
+	text-align: center !important;
+	color: white !important;
 }
 
 ::ng-deep .ui-menu {

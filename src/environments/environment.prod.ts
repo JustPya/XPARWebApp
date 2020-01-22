@@ -1,37 +1,37 @@
 export const environment = {
 	production: false,
 	// Users
-	urlLogin: "http://localhost:3000/auth/login",
-	urlGetAllAdmin: "http://localhost:3000/auth/",
-	urlUpdateAdmin: "http://localhost:3000/auth/username",
-	urlDeleteAdmin: "http://localhost:3000/auth",
-	urlCreateAdmin: "http://localhost:3000/auth",
+	urlLogin: "https://xparback.herokuapp.com/auth/login",
+	urlGetAllAdmin: "https://xparback.herokuapp.com/auth/",
+	urlUpdateAdmin: "https://xparback.herokuapp.com/auth/username",
+	urlDeleteAdmin: "https://xparback.herokuapp.com/auth",
+	urlCreateAdmin: "https://xparback.herokuapp.com/auth",
 
 	// Bands
-	urlGetAllBands: "http://localhost:3000/band",
-	urlUpdateBand: "http://localhost:3000/band",
-	urlCreateBand: "http://localhost:3000/band",
-	urlDeleteBand: "http://localhost:3000/band",
+	urlGetAllBands: "https://xparback.herokuapp.com/band",
+	urlUpdateBand: "https://xparback.herokuapp.com/band",
+	urlCreateBand: "https://xparback.herokuapp.com/band",
+	urlDeleteBand: "https://xparback.herokuapp.com/band",
 
 	// Songs
-	urlGetAllSongs: "http://localhost:3000/song",
-	urlCreateSong: "http://localhost:3000/song",
-	urlUpdateSong: "http://localhost:3000/song",
-	urlDeleteSong: "http://localhost:3000/song",
+	urlGetAllSongs: "https://xparback.herokuapp.com/song",
+	urlCreateSong: "https://xparback.herokuapp.com/song",
+	urlUpdateSong: "https://xparback.herokuapp.com/song",
+	urlDeleteSong: "https://xparback.herokuapp.com/song",
 
 	// Resources
-	urlGetAllResources: "http://localhost:3000/resource",
-	urlCreateResource: "http://localhost:3000/resource",
-	urlUpdateResource: "http://localhost:3000/resource",
-	urlDeleteResource: "http://localhost:3000/resource",
+	urlGetAllResources: "https://xparback.herokuapp.com/resource",
+	urlCreateResource: "https://xparback.herokuapp.com/resource",
+	urlUpdateResource: "https://xparback.herokuapp.com/resource",
+	urlDeleteResource: "https://xparback.herokuapp.com/resource",
 
 	// Instruments
-	urlGetAllInstruments: "http://localhost:3000/inst",
-	urlCreateInstrument: "http://localhost:3000/inst",
-	urlUpdateInstrument: "http://localhost:3000/inst",
-	urlDeleteInstrument: "http://localhost:3000/inst",
+	urlGetAllInstruments: "https://xparback.herokuapp.com/inst",
+	urlCreateInstrument: "https://xparback.herokuapp.com/inst",
+	urlUpdateInstrument: "https://xparback.herokuapp.com/inst",
+	urlDeleteInstrument: "https://xparback.herokuapp.com/inst",
 
 	// Upload
-	urlUploadVideo: "http://localhost:3000/upload/video",
-	urlUpdateUploadResource: "http://localhost:3000/upload/update-resource"
+	urlUploadVideo: "https://xparback.herokuapp.com/upload/video",
+	urlUpdateUploadResource: "https://xparback.herokuapp.com/upload/update-resource"
 };
